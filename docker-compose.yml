@@ -5,7 +5,7 @@ services:
     hostname: nginx-reverse-proxy
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - /nginx/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
+      - /opt/nginx/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
       - /opt/nginx/privkey.key:/etc/nginx/ssl/privkey.key:ro
     restart: unless-stopped
     ports:
