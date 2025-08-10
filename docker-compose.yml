@@ -14,8 +14,8 @@ services:
       - remnawave-tg-shop-network
 
   remnawave-tg-shop:
-    image:
-      build: .
+    image: ghcr.io/protopes/remnawave-tg-shop:latest
+    build: .
     container_name: remnawave-tg-shop
     hostname: remnawave-tg-shop
     env_file:
