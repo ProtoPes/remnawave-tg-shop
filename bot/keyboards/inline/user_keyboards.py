@@ -197,10 +197,8 @@ def get_referral_link_keyboard(
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
     builder.button(
-        text=_(
-            key="referral_share_message_button",
-            url=f"https://telegram.me/share/url?url={ref_url}",
-        )
+        text=_(key="referral_share_message_button"),
+        url=f"https://telegram.me/share/url?url={ref_url}",
     )
     builder.button(
         text=_(key="referral_share_message_button"),
