@@ -167,6 +167,7 @@
 │   ├── database_setup.py # Настройка БД
 │   └── models.py         # Модели SQLAlchemy
 ├── locales/              # Файлы локализации (ru, en)
+├── nginx/                # Конфигурация nginx reverse proxy
 ├── .env.example          # Пример файла с переменными окружения
 ├── Dockerfile            # Инструкции для сборки Docker-образа
 ├── docker-compose.yml    # Файл для оркестрации контейнеров
