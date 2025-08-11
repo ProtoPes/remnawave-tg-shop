@@ -132,6 +132,7 @@
 
 > [!WARNING]
 > Замените <CHANGE_ME> в файле `nginx/nginx.conf` на свой домен
+
     ```bash
     docker compose up -d
     ```
