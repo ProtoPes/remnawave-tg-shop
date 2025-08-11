@@ -3,7 +3,7 @@ import asyncio
 from typing import Dict, Any, Optional
 
 from aiogram import Bot, Dispatcher
-from aiogram.types import (MenuButtonDefault, MenuButtonWebApp, WebAppInfo, BotCommand)
+from aiogram.types import MenuButtonDefault, MenuButtonWebApp, WebAppInfo, BotCommand
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
@@ -51,7 +51,6 @@ async def on_startup_configured(dispatcher: Dispatcher):
     async_session_factory: sessionmaker = dispatcher["async_session_factory"]
 
     logging.info("STARTUP: on_startup_configured executing...")
-
 
     telegram_webhook_url_to_set = settings.WEBHOOK_BASE_URL
     if telegram_webhook_url_to_set:
@@ -131,9 +130,13 @@ async def on_startup_configured(dispatcher: Dispatcher):
 
     if settings.START_COMMAND_DESCRIPTION:
         try:
-            await bot.set_my_commands([
-                BotCommand(command="start", description=settings.START_COMMAND_DESCRIPTION)
-            ])
+            await bot.set_my_commands(
+                [
+                    BotCommand(
+                        command="start", description=settings.START_COMMAND_DESCRIPTION
+                    )
+                ]
+            )
             logging.info("STARTUP: /start command description set.")
         except Exception as e:
             logging.error(f"STARTUP: Failed to set bot commands: {e}", exc_info=True)
@@ -144,25 +147,31 @@ async def on_startup_configured(dispatcher: Dispatcher):
         dispatcher["queue_manager"] = queue_manager
         logging.info("STARTUP: Message queue manager initialized")
     except Exception as e:
-        logging.error(f"STARTUP: Failed to initialize message queue manager: {e}", exc_info=True)
+        logging.error(
+            f"STARTUP: Failed to initialize message queue manager: {e}", exc_info=True
+        )
 
     # Automatic sync on startup
     try:
         logging.info("STARTUP: Running automatic panel sync...")
-        
+
         async with async_session_factory() as session:
             sync_result = await perform_sync(
                 panel_service=panel_service,
                 session=session,
                 settings=settings,
-                i18n_instance=i18n_instance
+                i18n_instance=i18n_instance,
             )
-            
+
         if sync_result.get("status") == "completed":
-            logging.info(f"STARTUP: Automatic sync completed successfully. Details: {sync_result.get('details', 'N/A')}")
+            logging.info(
+                f"STARTUP: Automatic sync completed successfully. Details: {sync_result.get('details', 'N/A')}"
+            )
         else:
-            logging.warning(f"STARTUP: Automatic sync completed with issues. Status: {sync_result.get('status', 'unknown')}")
-            
+            logging.warning(
+                f"STARTUP: Automatic sync completed with issues. Status: {sync_result.get('status', 'unknown')}"
+            )
+
     except Exception as e:
         logging.error(f"STARTUP: Failed to run automatic sync: {e}", exc_info=True)
 
@@ -339,9 +348,7 @@ async def run_bot(settings_param: Settings):
     logging.info(
         f"Configured WEBHOOK_BASE_URL: '{tg_webhook_base}' -> Telegram Webhook Mode: {telegram_uses_webhook_mode}"
     )
-    logging.info(
-        f"YooKassa webhook path: '{settings_param.yookassa_webhook_path}'"
-    )
+    logging.info(f"YooKassa webhook path: '{settings_param.yookassa_webhook_path}'")
     logging.info(f"Decision: Run AIOHTTP server: {should_run_aiohttp_server}")
     logging.info(f"Decision: Run Telegram Polling: {run_telegram_polling}")
     logging.info(f"--- End Bot Run Mode Decision ---")
@@ -478,7 +485,8 @@ async def run_bot(settings_param: Settings):
             await web_app_runner.cleanup()
             logging.info("AIOHTTP AppRunner cleaned up.")
 
-        await dp.emit_shutdown()
+        # For some reason this function requires a dispatcher to be passed
+        await dp.emit_shutdown(dispatcher=dp)
         logging.info("Dispatcher shutdown sequence emitted.")
 
         logging.info("Bot run_bot function finished.")
