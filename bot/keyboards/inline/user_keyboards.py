@@ -2,7 +2,12 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardButton
 from aiogram.types import InlineKeyboardMarkup, WebAppInfo
 from typing import Dict, Optional, List
 
+from bot.middlewares.i18n import JsonI18n
 from config.settings import Settings
+
+
+def gettext(key: str, i18n_instance: JsonI18n, lang: Optional[str], **kwargs):
+    return i18n_instance.gettext(lang, key, **kwargs)
 
 
 def get_main_menu_inline_keyboard(
@@ -194,18 +199,24 @@ def get_payment_url_keyboard(
 def get_referral_link_keyboard(
     ref_url: str, lang: str, i18n_instance
 ) -> InlineKeyboardMarkup:
-    _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
+    import urllib.parse
+
+    ref_text = urllib.parse.quote(
+        gettext(
+            key="referral_friend_message",
+            i18n_instance=i18n_instance,
+            lang=lang,
+            referral_link=ref_url,
+        )
+    )
     builder = InlineKeyboardBuilder()
     builder.button(
-        text="share",
-        url=f"https://telegram.me/share/url?url={ref_url}",
+        text=gettext("inline_referral_title", i18n_instance, lang),
+        url=f"tg://msg?text={ref_text}",
     )
     builder.button(
-        text=_(key="referral_share_message_button"),
-        callback_data="referral_action:share_message",
-    )
-    builder.button(
-        text=_(key="back_to_main_menu_button"), callback_data="main_action:back_to_main"
+        text=gettext("back_to_main_menu_button", i18n_instance, lang),
+        callback_data="main_action:back_to_main",
     )
     builder.adjust(1)
     return builder.as_markup()

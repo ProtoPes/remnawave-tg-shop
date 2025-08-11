@@ -77,7 +77,7 @@
   "referral_no_bonuses_configured": "\nNo referral bonuses configured.",
   "referral_link_for_copying_reminder": "The link is above. Press and hold to copy.",
   "referral_share_message_button": "📩 Message for friend",
-  "referral_friend_message": "🚀 Hey! Try this VPN - it's fast, reliable and affordable!\n\n🎁 Use my link to get bonus days with your subscription!\n\n{referral_link}",
+  "referral_friend_message": "🚀 Hey! Try this if you want to use internet privately!\n🎁 There is a little bonus after first payment:\n{referral_link}",
   "friend_placeholder": "friend",
   "referral_bonus_inviter_notification_extended": "🎉 Congrats! Your friend {referee_name} paid for a subscription. You received {days} bonus days! Your subscription is now active until {new_end_date}.",
   "referral_bonus_inviter_notification_new_sub": "🎉 Congrats! Your friend {referee_name} paid for a subscription. You received a {days}-day bonus subscription! It is active until {new_end_date}.",
