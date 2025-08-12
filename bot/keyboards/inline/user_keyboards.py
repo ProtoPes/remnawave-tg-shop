@@ -6,12 +6,15 @@ from bot.middlewares.i18n import JsonI18n
 from config.settings import Settings
 
 
-def gettext(key: str, i18n_instance: JsonI18n, lang: Optional[str], **kwargs):
+def get_text(key: str, i18n_instance: JsonI18n, lang: Optional[str], **kwargs):
     return i18n_instance.gettext(lang, key, **kwargs)
 
 
 def get_main_menu_inline_keyboard(
-    lang: str, i18n_instance, settings: Settings, show_trial_button: bool = False
+    lang: str,
+    i18n_instance,
+    settings: Settings,
+    show_trial_button: bool = False,
 ) -> InlineKeyboardMarkup:
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
@@ -34,13 +37,6 @@ def get_main_menu_inline_keyboard(
             InlineKeyboardButton(
                 text=_(key="menu_my_subscription_inline"),
                 web_app=WebAppInfo(url=settings.SUBSCRIPTION_MINI_APP_URL),
-            )
-        )
-    else:
-        builder.row(
-            InlineKeyboardButton(
-                text=_(key="menu_my_subscription_inline"),
-                callback_data="main_action:my_subscription",
             )
         )
 
@@ -202,7 +198,7 @@ def get_referral_link_keyboard(
     import urllib.parse
 
     ref_text = urllib.parse.quote(
-        gettext(
+        get_text(
             key="referral_friend_message",
             i18n_instance=i18n_instance,
             lang=lang,
@@ -211,11 +207,11 @@ def get_referral_link_keyboard(
     )
     builder = InlineKeyboardBuilder()
     builder.button(
-        text=gettext("inline_referral_title", i18n_instance, lang),
+        text=get_text("inline_referral_title", i18n_instance, lang),
         url=f"tg://msg?text={ref_text}",
     )
     builder.button(
-        text=gettext("back_to_main_menu_button", i18n_instance, lang),
+        text=get_text("back_to_main_menu_button", i18n_instance, lang),
         callback_data="main_action:back_to_main",
     )
     builder.adjust(1)
