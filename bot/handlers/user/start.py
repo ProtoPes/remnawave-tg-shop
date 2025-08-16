@@ -146,7 +146,10 @@ async def send_main_menu(
             )
 
 
+# TODO: Remove hardcoded fields
 @router.message(CommandStart())
+@router.message(F.text == "Main menu")
+@router.message(F.text == "Главное меню")
 async def start_command_handler(
     message: types.Message,
     state: FSMContext,
@@ -256,8 +259,16 @@ async def start_command_handler(
                 )
 
     # Send welcome message if not disabled
-    if not settings.DISABLE_WELCOME_MESSAGE:
-        await message.answer(_(key="welcome", user_name=hd.quote(user.full_name)))
+    # Send keyboard with one big ass main menu button
+    if command and not settings.DISABLE_WELCOME_MESSAGE:
+        await message.answer(
+            _(key="welcome", user_name=hd.quote(user.full_name)),
+            reply_markup=types.ReplyKeyboardMarkup(
+                keyboard=[[types.KeyboardButton(text=_("main_menu_button"))]],
+                is_persistent=True,
+                resize_keyboard=True,
+            ),
+        )
 
     # Auto-apply promo code if provided via start parameter
     if promo_code_to_apply:
