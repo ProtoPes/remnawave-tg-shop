@@ -1,6 +1,7 @@
 {
   "welcome": "Welcome, {user_name}!",
   "main_menu_greeting": "Hi, {user_name}! 👋\nWhat would you like to do?",
+  "main_menu_button": "Main menu",
   "menu_activate_trial_button": "🆓 Free Trial",
   "menu_subscribe_inline": "🚀 Purchase",
   "menu_my_subscription_inline": "🔐 My Subscription",

@@ -1,6 +1,7 @@
 {
   "welcome": "Добро пожаловать, {user_name}!",
   "main_menu_greeting": "Привет, {user_name}! 👋\nЧем могу помочь?",
+  "main_menu_button": "Главное меню",
   "menu_activate_trial_button": "🆓 Пробный период",
   "menu_subscribe_inline": "🚀 Купить",
   "menu_my_subscription_inline": "🔐 Твоя подписка",
