@@ -108,6 +108,10 @@ class Settings(BaseSettings):
         description=
         "Comma-separated UUIDs of internal squads to assign to new panel users")
 
+    # For integrations with migrated service
+    EXTERNAL_API_URL: str
+    EXTERNAL_API_KEY: str
+
     TRIAL_ENABLED: bool = Field(default=True)
     TRIAL_DURATION_DAYS: int = Field(default=3)
     TRIAL_TRAFFIC_LIMIT_GB: Optional[float] = Field(default=5.0)

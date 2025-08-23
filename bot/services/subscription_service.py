@@ -1,10 +1,13 @@
 import logging
+import aiohttp
+from json import loads, JSONDecodeError
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Dict, Any, List, Tuple
 from aiogram import Bot
 from bot.middlewares.i18n import JsonI18n
 
+from config import settings
 from db.dal import user_dal, subscription_dal, promo_code_dal, payment_dal
 from db.models import User, Subscription
 
@@ -516,6 +519,30 @@ class SubscriptionService:
                 f"Panel user details update FAILED for paid sub user {panel_user_uuid}. Response: {updated_panel_user}"
             )
             return None
+
+        # Get description from panel
+        desc = updated_panel_user.get("description", {})
+        # Send info about subscrtiption in old bot
+        try:
+            desc_dict: dict = loads(desc)
+            if desc_dict and desc_dict.get("migrated"):
+                logging.info(f"Got migrated user: {user_id}, sending update request to external api")
+                headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": f"Bearer {self.settings.EXTERNAL_API_KEY}"
+                }
+                payload = {"user_id": user_id, "expire_at": final_end_date.isoformat()}
+                async with aiohttp.ClientSession(timeout=5) as sess:
+                    async with sess.post(self.settings.EXTERNAL_API_URL, json=payload, headers=headers) as response:
+                        if response.status == 200:
+                            logging.info(f"User {user_id} updated succesfully in external api")
+                        else:
+                            logging.warning(f"Status {response.status} received from external api")
+        except (JSONDecodeError, TypeError):
+            pass
+        except Exception as ex:
+            logging.warning(f"Cannot post activation to external api: {ex}")
 
         final_subscription_url = updated_panel_user.get("subscriptionUrl")
         final_panel_short_uuid = updated_panel_user.get("shortUuid", panel_short_uuid)
