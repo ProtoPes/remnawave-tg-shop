@@ -31,8 +31,10 @@ class DBSessionMiddleware(BaseMiddleware):
 
                 await session.commit()
                 return result
-            except Exception:
+            # Sometimes there is error here, need to investigate
+            except Exception as e:
                 await session.rollback()
+                logging.error(f"Exception name: {e}")
                 logging.error(
                     "DBSessionMiddleware: Exception caused rollback.", exc_info=True
                 )
