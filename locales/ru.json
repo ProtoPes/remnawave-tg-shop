@@ -142,6 +142,7 @@
   "admin_sync_status_never_run": "Синхронизация с панелью еще не проводилась.",
   "admin_broadcast_enter_message": "Введите сообщение для рассылки (HTML поддерживается):",
   "admin_broadcast_confirm_prompt": "Вы собираетесь отправить следующее сообщение:\n\n{message_preview}\n\nПодтверждаете отправку?",
+  "admin_broadcast_confirm_prompt_short": "Сообщение выше будет отправлено. Подтвердить отправку?",
   "broadcast_target_all_button": "👥 Все",
   "broadcast_target_active_button": "✅ Активные",
   "broadcast_target_inactive_button": "⌛ Неактивные",
