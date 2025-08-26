@@ -1,7 +1,6 @@
 import logging
 import re
 from aiogram import Router, F, types, Bot
-from aiogram.exceptions import TelegramBadRequest
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.markdown import hcode, hbold
 from typing import Optional, Dict, Any
@@ -16,7 +15,6 @@ from bot.keyboards.inline.admin_keyboards import get_back_to_admin_panel_keyboar
 from bot.services.subscription_service import SubscriptionService
 from bot.services.panel_api_service import PanelApiService
 from bot.middlewares.i18n import JsonI18n
-from bot.utils import get_message_content, send_direct_message
 from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardButton
 
 router = Router(name="admin_user_management_router")
@@ -580,7 +578,7 @@ async def process_subscription_days_handler(message: types.Message, state: FSMCo
     await state.clear()
 
 
-@router.message(AdminStates.waiting_for_direct_message_to_user)
+@router.message(AdminStates.waiting_for_direct_message_to_user, F.text)
 async def process_direct_message_handler(message: types.Message, state: FSMContext,
                                        settings: Settings, i18n_data: dict,
                                        bot: Bot, session: AsyncSession):
@@ -599,9 +597,8 @@ async def process_direct_message_handler(message: types.Message, state: FSMConte
         await state.clear()
         return
 
-    # Determine content similar to broadcast
-    text = (message.text or message.caption or "").strip()
-    if len(text) > 4000:
+    message_text = message.text.strip()
+    if len(message_text) > 4000:
         await message.answer(_(
             "admin_user_message_too_long",
             default="❌ Сообщение слишком длинное (максимум 4000 символов)"
@@ -616,40 +613,15 @@ async def process_direct_message_handler(message: types.Message, state: FSMConte
             await state.clear()
             return
 
-        # Prepare admin signature and get content
+        # Prepare message with admin signature
         admin_signature = _(
             "admin_direct_message_signature",
             default="\n\n---\n💬 Сообщение от администратора"
         )
-        
-        content = get_message_content(message)
+        full_message = message_text + admin_signature
 
-        if not content.text and not content.file_id:
-            await message.answer(_(
-                "admin_direct_empty_message",
-                default="❌ Пустое сообщение. Отправьте текст или медиа."
-            ))
-            return
-
-        caption_with_signature = (content.text + admin_signature) if content.text else None
-
-        # Send to target user using our fancy match/case function
-        try:
-            await send_direct_message(
-                bot,
-                target_user_id, 
-                content,
-                extra_text=admin_signature,
-                parse_mode="HTML",
-                disable_web_page_preview=True,
-            )
-        except TelegramBadRequest as e:
-            await message.answer(_(
-                "admin_broadcast_invalid_html",
-                default="❌ Некорректный HTML в сообщении. Пожалуйста, отправьте корректный HTML (поддерживаются теги Telegram) или уберите теги.\nОшибка: {error}",
-                error=str(e),
-            ))
-            return
+        # Send message to user
+        await bot.send_message(target_user_id, full_message)
         
         # Confirm to admin
         await message.answer(_(
