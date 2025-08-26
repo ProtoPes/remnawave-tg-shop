@@ -1,9 +1,10 @@
 import logging
+from json import loads
 from aiogram import Router, types, Bot
 from aiogram.filters import Command
 from typing import Optional, Union
 from sqlalchemy.ext.asyncio import AsyncSession
-from datetime import datetime, timezone
+from datetime import datetime
 
 from config.settings import Settings
 from bot.services.panel_api_service import PanelApiService
@@ -25,6 +26,7 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
     panel_records_checked = 0
     users_found_in_db = 0
     users_updated = 0
+    users_created = 0
     subscriptions_synced_count = 0
     sync_errors = []
     
@@ -34,6 +36,9 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
     users_uuid_updated = 0
     subscriptions_created = 0
     subscriptions_updated = 0
+
+    # Save referral information "user_id": "referred_by_id"
+    referral_info = {}
 
     try:
         panel_users_data = await panel_service.get_all_panel_users()
@@ -89,14 +94,36 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
                         # Update telegram ID if it was missing in panel data but we have local user
                         if telegram_id_from_panel and existing_user.user_id != telegram_id_from_panel:
                             logging.warning(f"TelegramId mismatch: panel={telegram_id_from_panel}, local={existing_user.user_id}")
-                
+
                 if not existing_user:
                     users_not_found_in_db += 1
-                    if telegram_id_from_panel:
-                        logging.debug(f"Panel user with telegramId {telegram_id_from_panel} and UUID {panel_uuid} not found in local DB")
+                    # Add users with telegram id and active subscription
+                    if telegram_id_from_panel and panel_user_dict.get("status") == "ACTIVE":
+                        # Retrieve referral info if any
+                        # Stored in description field as a dictionary key "referred_by_id"
+                        # Keep this data for later because referred user might not be in database
+                        desc = panel_user_dict.get("description", {})
+                        logging.debug(f"description: {desc}")
+                        try:
+                            if desc:
+                                desc_dict: dict = loads(desc)
+                                ref = desc_dict.get("referred_by_id")
+                                logging.debug(f"referred_by_id: {ref}")
+                                if ref:
+                                    referral_info[telegram_id_from_panel] = int(ref)
+                        except Exception as e:
+                            logging.error(f"Trying to evaluate description error: {e}")
+
+                        user_data_to_create = {
+                            "user_id": telegram_id_from_panel,
+                            "registration_date": datetime.fromisoformat(panel_user_dict.get("createdAt", datetime.today())),
+                        }
+                        existing_user = await user_dal.create_user(session, user_data_to_create)
+                        users_created +=1
+                        logging.debug(f"Panel user with telegramId {telegram_id_from_panel} and UUID {panel_uuid} not found in local DB. Creating.")
                     else:
                         logging.debug(f"Panel user with UUID {panel_uuid} (no telegramId) not found in local DB")
-                    continue
+                        continue
 
                 # User found in local DB
                 users_found_in_db += 1
@@ -216,12 +243,24 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
                 sync_errors.append(f"Error processing panel user {panel_user_dict.get('uuid', 'unknown')}: {str(e_user)}")
                 logging.error(f"Error syncing user: {e_user}")
 
+        logging.warning(referral_info)
+        # Update created users referral info in database
+        for user_id, referred_by_id in referral_info.items():
+            # Make sure we are referencing only existing user in our database
+            user_from_db = await user_dal.get_user_by_id(session, referred_by_id)
+            if user_from_db:
+                logging.info(f"Found user {user_id}, referred by {referred_by_id}, updating database")
+                await user_dal.update_user(session, user_id, {"referred_by_id": referred_by_id})
+            else:
+                logging.info(f"Referral {referred_by_id} does not exist in local database, skip")
+
         # Update sync status
         status = "completed_with_errors" if sync_errors else "completed"
         details = (f"📊 Статистика синхронизации:\n"
                   f"🔍 Проверено записей панели: {panel_records_checked}\n"
                   f"👥 Найдено пользователей в БД: {users_found_in_db}\n"
                   f"🔄 Пользователей обновлено: {users_updated}\n"
+                  f"🆕 Пользователей создано: {users_created}\n"
                   f"📋 Подписок синхронизировано: {subscriptions_synced_count}\n"
                   f"   ├── Создано новых: {subscriptions_created}\n"
                   f"   └── Обновлено существующих: {subscriptions_updated}")
@@ -246,6 +285,7 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
         logging.info(f"  Users found in local DB: {users_found_in_db}")
         logging.info(f"  Users with UUID updated: {users_uuid_updated}")
         logging.info(f"  Users updated overall: {users_updated}")
+        logging.info(f"  Users created overall: {users_created}")
         logging.info(f"  Subscriptions total synced: {subscriptions_synced_count}")
         logging.info(f"  Subscriptions created: {subscriptions_created}")
         logging.info(f"  Subscriptions updated: {subscriptions_updated}")
