@@ -509,8 +509,8 @@ class SubscriptionService:
             return None
 
         # Send info about subscrtiption in old bot
+        tag = updated_panel_user.get("tag")
         try:
-            tag = updated_panel_user.get("tag")
             if tag == "MIGRATED":
                 logging.info(f"Got migrated user: {user_id}, sending update request to external api")
                 headers = {
@@ -540,6 +540,7 @@ class SubscriptionService:
             "panel_short_uuid": final_panel_short_uuid,
             "subscription_url": final_subscription_url,
             "applied_promo_bonus_days": applied_promo_bonus_days,
+            "tag": tag,
         }
 
     async def extend_active_subscription_days(
@@ -729,6 +730,7 @@ class SubscriptionService:
             "traffic_used_bytes": panel_user_data.get("usedTrafficBytes"),
             "user_bot_username": db_user.username,
             "is_panel_data": True,
+            "tag": panel_user_data.get("tag")
         }
 
     async def get_subscriptions_ending_soon(
