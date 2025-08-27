@@ -33,6 +33,7 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
     # Additional counters for detailed logging
     users_without_telegram_id = 0
     users_not_found_in_db = 0
+    users_created = 0
     users_uuid_updated = 0
     subscriptions_created = 0
     subscriptions_updated = 0
@@ -97,32 +98,43 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
 
                 if not existing_user:
                     users_not_found_in_db += 1
-                    # Add users with telegram id and active subscription
                     if telegram_id_from_panel and panel_user_dict.get("status") == "ACTIVE":
+                        # Create new user if they have telegram_id and ACTIVE status
+
                         # Retrieve referral info if any
                         # Stored in description field as a dictionary key "referred_by_id"
                         # Keep this data for later because referred user might not be in database
                         desc = panel_user_dict.get("description", {})
-                        logging.debug(f"description: {desc}")
                         try:
                             if desc:
                                 desc_dict: dict = loads(desc)
                                 ref = desc_dict.get("referred_by_id")
-                                logging.debug(f"referred_by_id: {ref}")
                                 if ref:
                                     referral_info[telegram_id_from_panel] = int(ref)
+                                    logging.debug(f"Found referral for user {telegram_id_from_panel}: {ref}")
                         except Exception as e:
                             logging.error(f"Trying to evaluate description error: {e}")
 
-                        user_data_to_create = {
-                            "user_id": telegram_id_from_panel,
-                            "registration_date": datetime.fromisoformat(panel_user_dict.get("createdAt", datetime.today())),
-                        }
-                        existing_user = await user_dal.create_user(session, user_data_to_create)
-                        users_created +=1
-                        logging.debug(f"Panel user with telegramId {telegram_id_from_panel} and UUID {panel_uuid} not found in local DB. Creating.")
+                        try:
+                            user_data = {
+                                "user_id": telegram_id_from_panel,
+                                "panel_user_uuid": panel_uuid,
+                                "registration_date": datetime.fromisoformat(panel_user_dict.get("createdAt", datetime.today())),
+                            }
+
+                            new_user, was_created = await user_dal.create_user(session, user_data)
+                            if was_created:
+                                users_created += 1
+                                logging.info(f"Created new user {telegram_id_from_panel} from panel sync with UUID {panel_uuid}")
+
+                            existing_user = new_user
+
+                        except Exception as e_create:
+                            sync_errors.append(f"Error creating user {telegram_id_from_panel}: {str(e_create)}")
+                            logging.error(f"Error creating user {telegram_id_from_panel}: {e_create}")
+                            continue
                     else:
-                        logging.debug(f"Panel user with UUID {panel_uuid} (no telegramId) not found in local DB")
+                        logging.debug(f"Panel user with UUID {panel_uuid} (no telegramId) not found in local DB - skipping")
                         continue
 
                 # User found in local DB
@@ -243,7 +255,6 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
                 sync_errors.append(f"Error processing panel user {panel_user_dict.get('uuid', 'unknown')}: {str(e_user)}")
                 logging.error(f"Error syncing user: {e_user}")
 
-        logging.warning(referral_info)
         # Update created users referral info in database
         for user_id, referred_by_id in referral_info.items():
             # Make sure we are referencing only existing user in our database
@@ -256,21 +267,27 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
 
         # Update sync status
         status = "completed_with_errors" if sync_errors else "completed"
-        details = (f"📊 Статистика синхронизации:\n"
-                  f"🔍 Проверено записей панели: {panel_records_checked}\n"
-                  f"👥 Найдено пользователей в БД: {users_found_in_db}\n"
-                  f"🔄 Пользователей обновлено: {users_updated}\n"
-                  f"🆕 Пользователей создано: {users_created}\n"
-                  f"📋 Подписок синхронизировано: {subscriptions_synced_count}\n"
-                  f"   ├── Создано новых: {subscriptions_created}\n"
-                  f"   └── Обновлено существующих: {subscriptions_updated}")
-        
+        # Build additional stats
+        default_lang = settings.DEFAULT_LANGUAGE
+        additional_stats = ""
         if users_without_telegram_id > 0:
-            details += f"\n⚠️ Записей без telegramId: {users_without_telegram_id}"
+            additional_stats += i18n_instance.gettext(default_lang, "admin_sync_no_telegram_id", count=users_without_telegram_id)
         if users_not_found_in_db > 0:
-            details += f"\n❌ Не найдено в БД: {users_not_found_in_db}"
+            additional_stats += i18n_instance.gettext(default_lang, "admin_sync_not_found_in_db", count=users_not_found_in_db)
         if sync_errors:
-            details += f"\n🚫 Ошибок: {len(sync_errors)}"
+            additional_stats += i18n_instance.gettext(default_lang, "admin_sync_errors", count=len(sync_errors))
+
+        # Build full details using localization
+        details = i18n_instance.gettext(default_lang, "admin_sync_details", 
+            panel_records_checked=panel_records_checked,
+            users_found_in_db=users_found_in_db,
+            users_created=users_created,
+            users_updated=users_updated,
+            subscriptions_synced_count=subscriptions_synced_count,
+            subscriptions_created=subscriptions_created,
+            subscriptions_updated=subscriptions_updated,
+            additional_stats=additional_stats
+        )
 
         await panel_sync_dal.update_panel_sync_status(
             session, status, details, panel_records_checked, subscriptions_synced_count
@@ -283,6 +300,7 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
         logging.info(f"  Users without telegramId: {users_without_telegram_id}")
         logging.info(f"  Users not found in local DB: {users_not_found_in_db}")
         logging.info(f"  Users found in local DB: {users_found_in_db}")
+        logging.info(f"  Users created: {users_created}")
         logging.info(f"  Users with UUID updated: {users_uuid_updated}")
         logging.info(f"  Users updated overall: {users_updated}")
         logging.info(f"  Users created overall: {users_created}")
@@ -296,6 +314,7 @@ async def perform_sync(panel_service: PanelApiService, session: AsyncSession,
             "details": details,
             "users_processed": panel_records_checked,
             "users_synced": users_found_in_db,
+            "users_created": users_created,
             "subs_synced": subscriptions_synced_count,
             "errors": sync_errors
         }
