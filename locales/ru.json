@@ -1,10 +1,10 @@
 {
   "welcome": "Добро пожаловать, {user_name}!",
-  "main_menu_greeting": "Привет, {user_name}! 👋\nЧто бы вы хотели сделать?",
-
+  "main_menu_greeting": "Привет, {user_name}! 👋\nЧем могу помочь?",
+  "main_menu_button": "Главное меню",
   "menu_activate_trial_button": "🆓 Пробный период",
   "menu_subscribe_inline": "🚀 Купить",
-  "menu_my_subscription_inline": "🔐 Моя подписка",
+  "menu_my_subscription_inline": "🔐 Твоя подписка",
   "menu_referral_inline": "🎁 Рефералы",
   "menu_apply_promo_button": "🎟 Промокод",
   "menu_language_settings_inline": "🌐 Язык",
@@ -12,14 +12,12 @@
   "menu_support_button": "💬 Поддержка",
   "menu_terms_button": "📄 Условия сервиса",
   "back_to_main_menu_button": "⬅️ Назад",
-  
   "choose_language": "Выберите язык / Select language:",
   "language_set_alert": "Язык изменен!",
   "error_occurred_try_again": "Произошла ошибка, попробуйте снова.",
   "error_try_again": "Попробуйте еще раз.",
   "error_displaying_menu": "Ошибка отображения меню.",
   "main_menu_unknown_action": "Неизвестное действие.",
-
   "select_subscription_period": "Выберите срок подписки:",
   "no_subscription_options_available": "В данный момент нет доступных вариантов подписки.",
   "subscribe_for_months_button": "{months} мес. - {price} {currency_symbol}",
@@ -38,14 +36,13 @@
   "error_payment_gateway_link_failed": "Не удалось получить ссылку на оплату. Пожалуйста, свяжитесь с поддержкой.",
   "payment_link_message": "Для оплаты подписки на {months} мес., нажмите кнопку ниже:",
   "error_payment_gateway": "Ошибка платежного шлюза. Попробуйте позже или свяжитесь с поддержкой.",
-  "payment_successful_error_details": "✅ Оплата прошла успешно, но возникла ошибка при отображении деталей. Ваша подписка активна. Свяжитесь с поддержкой, если что-то не так.",
-  "payment_successful_full": "✅ Оплата прошла успешно!\nВаша подписка на {months} мес. активна до {end_date}.\n\nКлюч подключения:\n<code>{config_link}</code>\n\nЧтобы подключиться, перейдите по ссылке и следуйте инструкции 👇",
-  "payment_successful_with_promo_full": "✅ Оплата прошла успешно!\nВаша подписка на {months} мес. (с учетом промокода на +{bonus_days} дней) активна до {end_date}.\n\nКлюч подключения:\n<code>{config_link}</code>\n\nЧтобы подключиться, перейдите по ссылке и следуйте инструкции 👇",
-  "payment_successful_with_referral_bonus_full": "✅ Оплата прошла успешно!\nВаша подписка на {months} мес. (базовая дата окончания: {base_end_date}) продлена на {bonus_days} бонусных дней за приглашение от {inviter_name} и теперь активна до {final_end_date}.\n\nКлюч подключения:\n<code>{config_link}</code>\n\nЧтобы подключиться, перейдите по ссылке и следуйте инструкции 👇",
+  "payment_successful_error_details": "✅ Оплата прошла успешно, но возникла ошибка при отображении деталей. Твоя подписка активна. Свяжись с поддержкой, если что-то не так.",
+  "payment_successful_full": "✅ Оплата прошла успешно!\nТвоя подписка на {months} мес. активна до {end_date}.\n\nПереходи по ссылке для подключения:\n{config_link}",
+  "payment_successful_with_promo_full": "✅ Оплата прошла успешно!\nТвоя подписка на {months} мес. (с учетом промокода на +{bonus_days} дней) активна до {end_date}.\n\nПереходи по ссылке для подключения:\n{config_link}",
+  "payment_successful_with_referral_bonus_full": "✅ Оплата прошла успешно!\nТвоя подписка на {months} мес. (базовая дата окончания: {base_end_date}) продлена на {bonus_days} бонусных дней за приглашение от {inviter_name} и теперь активна до {final_end_date}.\n\nПереходи по ссылке для подключения:\n{config_link}",
   "payment_failed": "❌ Оплата не удалась или была отменена. Пожалуйста, попробуйте еще раз или свяжитесь с поддержкой.",
-  "error_processing_your_payment": "Произошла ошибка при обработке вашего платежа после его успеха. Пожалуйста, свяжитесь с поддержкой, указав детали.",
-
-  "my_subscription_details": "<b>🔐 Моя подписка:</b>\n\nСтатус: <b>{status}</b>\nАктивна до: <b>{end_date}</b> (осталось дней: {days_left})\n\nТрафик: <b>{traffic_used}</b> из <b>{traffic_limit}</b>\n\nСсылка на конфигурацию:\n<code>{config_link}</code>",
+  "error_processing_your_payment": "Произошла ошибка при обработке платежа после его успеха. Пожалуйста, свяжитесь с поддержкой, указав детали.",
+  "my_subscription_details": "<b>🔐 Твоя подписка:</b>\n\nСтатус: <b>{status}</b>\nАктивна до: <b>{end_date}</b> (осталось дней: {days_left})\n\nПереходи по ссылке для подключения:\n{config_link}",
   "config_link_not_available": "недоступна, обратитесь в поддержку",
   "subscription_not_active": "У вас нет активной подписки. \nХотите приобрести?",
   "status_active": "Активна",
@@ -54,7 +51,6 @@
   "traffic_unlimited": "Безлимитный",
   "traffic_na": "н/д",
   "error_service_unavailable": "Сервис временно недоступен. Пожалуйста, попробуйте позже.",
-
   "promo_code_prompt": "Пожалуйста, введите ваш промокод:",
   "promo_code_not_found": "Промокод <code>{code}</code> не найден, истек или уже использован максимальное количество раз.",
   "promo_code_already_used_by_user": "Вы уже активировали промокод <code>{code}</code>.",
@@ -62,35 +58,31 @@
   "promo_code_applied_success_full": "✅ Промокод успешно применен!\nПодписка активна до {end_date}.\n\nКлюч подключения:\n<code>{config_link}</code>\n\nЧтобы подключиться, перейдите по ссылке и следуйте инструкции 👇",
   "error_applying_promo_bonus": "Не удалось применить бонус по промокоду. Пожалуйста, попробуйте позже или свяжитесь с поддержкой.",
   "promo_input_cancelled_short": "Ввод промокода отменен.",
-
   "trial_feature_disabled": "Пробный период в данный момент недоступен.",
   "trial_already_had_subscription_or_trial": "Вы уже использовали пробный период или у вас была платная подписка. Пробный период доступен только один раз для новых пользователей.",
   "trial_confirm_prompt": "Хотите активировать бесплатный пробный период на {days} дней с лимитом трафика {traffic_gb}?",
   "trial_confirm_activate_button": "✅ Активировать!",
   "trial_activated_alert": "Пробный период активирован!",
-  "trial_activated_details_message": "🚀 Ваш пробный период на {days} дней активирован!\n\nДействует до: <b>{end_date}</b>\nТрафик: <b>{traffic_gb}</b>\n\nВаша ссылка на конфигурацию:\n<code>{config_link}</code>",
+  "trial_activated_details_message": "🚀 Твой пробный период на {days} дней активирован!\n\nДействует до: <b>{end_date}</b>\n\nПереходи по ссылке для подключения:\n{config_link}",
   "trial_activation_failed": "Не удалось активировать пробный период. Пожалуйста, попробуйте позже.",
   "trial_activation_failed_panel_link": "Не удалось связать ваш аккаунт с сервером для активации пробного периода. Попробуйте позже.",
   "trial_activation_failed_db": "Ошибка базы данных при активации пробного периода. Попробуйте позже.",
   "trial_activation_failed_panel_update": "Не удалось обновить детали на сервере для пробного периода. Попробуйте позже.",
-  "user_not_found_for_trial": "Ваш аккаунт не найден в системе. Пожалуйста, сначала выполните команду /start.",
+  "user_not_found_for_trial": "Твой аккаунт не найден в системе. Пожалуйста, сначала выполни команду /start.",
   "yes_button": "Да",
   "no_button": "Нет",
   "trial_cancelled_short": "Активация отменена.",
-
-  "referral_program_info_new": "🎁 <b>Реферальная программа</b>\n\n📊 <b>Твоя статистика:</b>\n👥 Приглашено друзей: <b>{invited_count}</b>\n💳 Купили подписку: <b>{purchased_count}</b>\n\n🔗 Твоя ссылка:\n<code>{referral_link}</code>\n\n💰 <b>Бонусы за приглашения:</b>\n{bonus_details}\n\n📢 Поделись ссылкой с друзьями и получай бонусы!",
-  "referral_bonus_per_period": "\n\n🎁 За {months}-мес. подписку друга:\n  ➢ Вы: <b>{inviter_bonus_days} дн.</b>\n  ➢ Друг: <b>{referee_bonus_days} дн.</b>",
+  "referral_program_info_new": "🎁 <b>Реферальная программа</b>\n📊 <b>Твоя статистика:</b>\n👥 Приглашено друзей: <b>{invited_count}</b>\n💳 Купили подписку: <b>{purchased_count}</b>\n\n💰 <b>Бонусы за приглашения:</b>\n{bonus_details}\n\n📢 Поделись ссылкой с друзьями и получай бонусы:\n\n<code>{referral_link}</code>",
+  "referral_bonus_per_period": "🎁 За {months}-мес. подписку друга:\n  ➢ Вы: <b>{inviter_bonus_days} дн.</b>\n  ➢ Друг: <b>{referee_bonus_days} дн.</b>",
   "no_bonus_days": "0",
   "referral_no_bonuses_configured": "\nРеферальные бонусы не настроены.",
   "referral_link_for_copying_reminder": "Ссылка выше. Нажмите и удерживайте для копирования.",
   "referral_share_message_button": "📩 Сообщение для друга",
-  "referral_friend_message": "🚀 Привет! Попробуй этот VPN - быстрый, надёжный и доступный!\n\n🎁 По моей ссылке тебе дадут бонусные дни к подписке!\n\n{referral_link}",
+  "referral_friend_message": "🚀 Хочешь ускорить ютуб?\n🎁 Первые несколько дней бесплатно и бонус после оплаты:\n\n{referral_link}",
   "friend_placeholder": "друг",
-  "referral_bonus_inviter_notification_extended": "🎉 Поздравляем! Ваш друг {referee_name} оплатил подписку. Вам начислено {days} бонусных дней! Ваша подписка теперь активна до {new_end_date}.",
-  "referral_bonus_inviter_notification_new_sub": "🎉 Поздравляем! Ваш друг {referee_name} оплатил подписку. Вам начислена бонусная подписка на {days} дней! Она активна до {new_end_date}.",
-
-  "user_is_banned": "🚫 Ваш аккаунт заблокирован. Пожалуйста, свяжитесь со службой поддержки.",
-
+  "referral_bonus_inviter_notification_extended": "🎉 Поздравляем! Твой друг {referee_name} оплатил подписку. Тебе начислено {days} бонусных дней! Твоя подписка теперь активна до {new_end_date}.",
+  "referral_bonus_inviter_notification_new_sub": "🎉 Поздравляем! Твой друг {referee_name} оплатил подписку. Тебе начислена бонусная подписка на {days} дней! Она активна до {new_end_date}.",
+  "user_is_banned": "🚫 Твой аккаунт заблокирован. Пожалуйста, свяжись со службой поддержки.",
   "admin_panel_title": "Панель администратора",
   "admin_stats_button": "📊 Статистика",
   "admin_broadcast_button": "📢 Рассылка",
@@ -104,7 +96,6 @@
   "admin_view_logs_menu_button": "📄 Логи",
   "admin_sync_panel_button": "🔄 Синхронизация",
   "admin_unknown_action": "Неизвестное действие администратора.",
-  
   "admin_stats_and_monitoring_section": "📊 Статистика",
   "admin_user_management_section": "👥 Пользователи",
   "admin_promo_marketing_section": "🎁 Промокоды",
@@ -115,7 +106,6 @@
   "admin_action_cancelled_default": "Действие отменено. Возврат в меню.",
   "admin_action_cancelled_default_alert": "Действие отменено",
   "back_to_admin_panel_button": "⬅️ В админку",
-
   "admin_stats_header": "📊 Статистика Бота",
   "admin_enhanced_users_stats_header": "Пользователи",
   "admin_financial_stats_header": "Финансовая статистика",
@@ -123,7 +113,6 @@
   "admin_stats_recent_payments_header": "Последние платежи:",
   "admin_stats_payment_item": "{status_emoji} {amount} {currency} от {user_info} ({p_status}) [{p_date}]",
   "admin_stats_no_payments_found": "Платежей пока нет.",
-  
   "admin_view_payments_button": "💰 Платежи",
   "admin_payments_header": "💰 <b>Все платежи</b>",
   "admin_no_payments_found": "Платежи не найдены.",
@@ -132,7 +121,6 @@
   "admin_no_payments_to_export": "Нет платежей для экспорта.",
   "admin_payments_export_success": "📊 Экспорт платежей завершен!\nВсего записей: {count}",
   "admin_export_sent": "Файл отправлен!",
-  
   "admin_csv_payment_id": "ID",
   "admin_csv_user_id": "User ID",
   "admin_csv_username": "Логин",
@@ -152,7 +140,6 @@
   "admin_stats_sync_subs_synced": "Синхронизировано подписок",
   "admin_stats_sync_details_label": "Детали",
   "admin_sync_status_never_run": "Синхронизация с панелью еще не проводилась.",
-
   "admin_broadcast_enter_message": "Введите сообщение для рассылки (HTML поддерживается):",
   "admin_broadcast_confirm_prompt": "Вы собираетесь отправить следующее сообщение:\n\n{message_preview}\n\nПодтверждаете отправку?",
   "admin_broadcast_confirm_prompt_short": "Сообщение выше будет отправлено. Подтвердить отправку?",
@@ -168,7 +155,6 @@
   "admin_broadcast_cancelled": "Рассылка отменена.",
   "admin_broadcast_cancelled_alert": "Рассылка отменена!",
   "admin_broadcast_cancelled_nav_back": "Рассылка отменена. Вы возвращены в админ-панель.",
-  
   "admin_promo_create_prompt": "Введите детали промокода в формате: КОД ДНИ_БОНУСА МАКС_АКТИВАЦИЙ [СРОК_ДЕЙСТВИЯ_В_ДНЯХ_ОТ_СЕЙЧАС]\nПример: <code>{example_format}</code>\n(Срок действия необязателен, по умолчанию - бессрочный)",
   "admin_promo_invalid_format": "Неверный формат ввода. Пожалуйста, используйте: КОД ДНИ_БОНУСА МАКС_АКТИВАЦИЙ [ДНИ_ДЕЙСТВИЯ]",
   "admin_promo_invalid_code_format": "Код должен быть от 3 до 30 символов и содержать только буквы и цифры.",
@@ -214,7 +200,6 @@
   "admin_promo_edit_bonus_days": "🎁 Бонусные дни",
   "admin_promo_edit_max_activations": "🔢 Макс. активации",
   "admin_promo_edit_validity": "⏰ Срок действия",
-
   "admin_ban_user_prompt": "Введите ID или @username пользователя для блокировки:",
   "admin_user_not_found_in_bot_db": "Пользователь <code>{user_id}</code> не найден в базе данных бота.",
   "admin_cannot_ban_self_or_admin": "Вы не можете заблокировать себя или другого администратора.",
@@ -252,7 +237,6 @@
   "admin_user_ban_failed_db_error": "Ошибка блокировки пользователя в БД.",
   "admin_user_unban_failed_db_error": "Ошибка разблокировки пользователя в БД.",
   "admin_panel_status_update_fail_part": ", но статус на панели не обновлен",
-
   "admin_logs_menu_title": "Меню логов:",
   "admin_view_all_logs_button": "📜 Все логи сообщений",
   "admin_view_user_logs_prompt_button": "👤 Логи пользователя",
@@ -264,7 +248,6 @@
   "admin_prompt_for_user_id_or_username_logs": "Введите ID или @username пользователя для просмотра его логов:",
   "admin_log_user_not_found": "Пользователь по запросу \"{input}\" не найден в базе данных бота.",
   "admin_user_logs_title": "Логи пользователя {user_display} (стр. {current_page}/{total_pages}):",
-  
   "sync_started_simple": "🔄 Начинаю синхронизацию...",
   "sync_success_simple": "✅ Синхронизация успешно завершена",
   "sync_failed_simple": "❌ Синхронизация завершилась с ошибкой",
@@ -277,21 +260,16 @@
   "error_displaying_logs_too_long": "Ошибка: логи слишком длинные для отображения одним сообщением. Попробуйте найти логи по конкретному пользователю.",
   "error_displaying_statistics": "Ошибка отображения статистики.",
   "stub_page_display": "Страница",
-
-  "subscription_72h_notification": "👋 Привет, {user_name}!\n\n⏳ Ваша подписка на VPN истекает через 3 дня — {end_date}.\n\nПродлите её по кнопке ниже.",
-  "subscription_48h_notification": "👋 Привет, {user_name}!\n\n⏳ Ваша подписка на VPN истекает через 2 дня — {end_date}.\n\nПродлите её по кнопке ниже.",
-  "subscription_24h_notification": "👋 Привет, {user_name}!\n\n⏳ Ваша подписка на VPN истекает через 1 день — {end_date}.\n\nПродлите её по кнопке ниже.",
-  "subscription_expired_notification": "👋 Привет, {user_name}!\n\n⛔ Срок вашей подписки на VPN истек ({end_date}).\n\nПродлите её по кнопке ниже.",
-  "subscription_expired_yesterday_notification": "👋 Привет, {user_name}!\n\n⏳ Ваша подписка на VPN истекла сутки назад ({end_date}).\n\nПродлите её по кнопке ниже.",
-  "tribute_subscription_cancelled": "🚨 <b>Подписка отменена</b>\n\nВаша подписка Tribute была отменена. У вас есть 24 часа для восстановления доступа, после чего подписка будет заблокирована.\n\nДля продления подписки нажмите кнопку ниже.",
-  "tribute_auto_renewal": "🔄 <b>Подписка автоматически продлена</b>\n\nВаша подписка Tribute была автоматически продлена на {months} мес.\nНовая дата окончания: {end_date}",
-
+  "subscription_72h_notification": "👋 Привет, {user_name}!\n\n⏳ Твоя подписка истекает через 3 дня — {end_date}.\n\nПродлить можно по кнопке ниже.",
+  "subscription_48h_notification": "👋 Привет, {user_name}!\n\n⏳ Твоя подписка истекает через 2 дня — {end_date}.\n\nПродлить можно по кнопке ниже.",
+  "subscription_24h_notification": "👋 Привет, {user_name}!\n\n⏳ Твоя подписка истекает через 1 день — {end_date}.\n\nПродлить можно по кнопке ниже.",
+  "subscription_expired_notification": "👋 Привет, {user_name}!\n\n⛔ Срок твоей подписки истек ({end_date}).\n\nПродлить можно по кнопке ниже.",
+  "subscription_expired_yesterday_notification": "👋 Привет, {user_name}!\n\n⏳ Твоя подписка истекла сутки назад ({end_date}).\n\nПродлить можно по кнопке ниже.",
+  "tribute_subscription_cancelled": "🚨 <b>Подписка отменена</b>\n\nТвоя подписка Tribute была отменена. У тебя есть 24 часа для восстановления доступа, после чего подписка будет заблокирована.\n\nДля продления подписки нажми кнопку ниже.",
+  "tribute_auto_renewal": "🔄 <b>Подписка автоматически продлена</b>\n\nТвоя подписка Tribute была автоматически продлена на {months} мес.\nНовая дата окончания: {end_date}",
   "admin_new_trial_notification": "\ud83c\udf21 Пользователь {user_id} активировал пробный период до {end_date}.",
-
   "admin_promo_activation_notification": "\ud83c\udf81 Пользователь {user_id} активировал промокод {code} (+{bonus_days} дн.)",
-
   "error_unknown": "Произошла неизвестная ошибка.",
-  
   "admin_user_management_prompt": "👤 Управление пользователями\n\nВведите ID пользователя или @username для поиска:",
   "admin_user_card_title": "Карточка пользователя",
   "admin_user_subscription_info": "Информация о подписке:",
@@ -304,7 +282,6 @@
   "admin_user_search_new_button": "🔍 Новый поиск",
   "admin_user_view_all_logs_button": "📋 Все логи",
   "admin_user_back_to_card_button": "🔙 К карточке",
-  
   "admin_user_not_found": "❌ Пользователь не найден: {input}",
   "admin_user_not_found_action": "Пользователь не найден",
   "admin_user_card_error": "❌ Ошибка отображения карточки пользователя",
@@ -328,26 +305,20 @@
   "admin_user_no_logs": "📜 У пользователя нет действий",
   "admin_user_logs_error": "❌ Ошибка загрузки действий пользователя",
   "admin_direct_message_signature": "\n\n---\n💬 Сообщение от администратора",
-  
   "inline_user_stats_message": "📊 <b>Статистика Бота</b>\n👥 Пользователи\n\n📊 Всего: <b>{total}</b>\n💳 С платной подпиской: <b>{paid}</b>\n🆓 На пробном периоде: <b>{trial}</b>\n😴 Неактивных: <b>{inactive}</b>\n🚫 Заблокированных: <b>{banned}</b>\n🎁 Привлечено по реферальной программе: <b>{referral}</b>",
   "inline_user_stats_description": "Всего: {total}, Платных: {active}",
   "inline_admin_user_stats_title": "👥 Статистика пользователей",
   "inline_admin_user_stats_desc": "Всего: {total}, Активных: {paid}",
-  
   "inline_financial_stats_message": "💰 <b>Финансовая статистика</b>\n\n📅 За сегодня: <b>{today:.2f} RUB</b>\n   ({today_count} платежей)\n📅 За неделю: <b>{week:.2f} RUB</b>\n📅 За месяц: <b>{month:.2f} RUB</b>\n🏆 За все время: <b>{all_time:.2f} RUB</b>",
-  "inline_admin_financial_stats_title": "💰 Финансовая статистика", 
+  "inline_admin_financial_stats_title": "💰 Финансовая статистика",
   "inline_admin_financial_stats_desc": "Сегодня: {today:.2f} RUB",
-  
   "inline_system_stats_message": "🖥 <b>Статистика панели</b>\n\n🟢 Онлайн: <b>{online}</b>\n📊 Активных: <b>{active}</b>\n🔴 Отключенных: <b>{disabled}</b>\n⏰ Истекшие: <b>{expired}</b>\n⚠️ Ограниченные: <b>{limited}</b>\n👥 Всего пользователей: <b>{total}</b>\n💾 Использование RAM: <b>{memory:.1f}%</b>\n📊 Трафик за неделю: <b>{week_traffic}</b>\n📊 Трафик за месяц: <b>{month_traffic}</b>\n🔗 Активных нод: <b>{active_nodes}/{total_nodes}</b>",
   "inline_admin_system_stats_title": "🖥 Системная статистика",
   "inline_admin_system_stats_desc": "Онлайн: {online}, Офлайн: {offline}",
-  
   "inline_admin_help_message": "🤖 <b>Inline режим бота</b>\n\n📱 <b>Доступные команды:</b>\n\n🎁 <b>реф/ref</b> - поделиться реферальной ссылкой\n👥 <b>стат/stat</b> - статистика пользователей\n💰 <b>финансы</b> - финансовая статистика\n🖥 <b>система</b> - системная статистика\n\n💡 Просто напишите @{bot_username} и начните вводить команду в любом чате!",
-  
   "inline_user_help_message": "🤖 <b>Inline режим бота</b>\n\n📱 <b>Доступные команды:</b>\n\n🎁 <b>реф/ref</b> - поделиться реферальной ссылкой\n\n💡 Просто напишите @{bot_username} и начните вводить 'реф' в любом чате!",
   "inline_user_help_title": "🤖 Inline помощь",
   "inline_user_help_desc": "Доступна команда: реф (реферальная ссылка)",
-  
   "log_referral_suffix": " (реферал от {referrer_id})",
   "log_new_user_registration": "👤 <b>Новый пользователь</b>\n\n🆔 ID: <code>{user_id}</code>\n👤 Имя: {user_display}{referral_text}\n📅 Время: {timestamp}",
   "log_payment_received": "{provider_emoji} <b>Получен платеж</b>\n\n👤 Пользователь: {user_display}\n💰 Сумма: <b>{amount} {currency}</b>\n📅 Период: <b>{months} мес.</b>\n🏦 Провайдер: {payment_provider}\n🕐 Время: {timestamp}",
@@ -355,14 +326,12 @@
   "log_trial_activation": "🆓 <b>Активирован триал</b>\n\n👤 Пользователь: {user_display}\n⏰ Действует до: <b>{end_date}</b>\n🕐 Время: {timestamp}",
   "log_panel_sync": "{status_emoji} <b>Синхронизация с панелью</b>\n\n📊 Статус: <b>{status}</b>\n👥 Обработано пользователей: <b>{users_processed}</b>\n📋 Синхронизировано подписок: <b>{subs_synced}</b>\n🕐 Время: {timestamp}\n\n📝 Детали:\n{details}",
   "log_suspicious_promo": "⚠️ <b>Подозрительная попытка ввода промокода</b>\n\n👤 Пользователь: {user_display}\n🆔 ID: <code>{user_id}</code>\n📝 Ввод: <pre>{suspicious_input}</pre>\n🕐 Время: {timestamp}",
-  
   "admin_general_cancel_operation": "Операция отменена ❌",
   "admin_promo_codes_menu_bulk_create": "📦 Массовое создание",
   "admin_bulk_promo_create_prompt": "📦 Массовое создание промокодов\n\nВведите данные в формате:\n<code>количество|дни|описание</code>\n\nПример:\n<code>10|7|Промо на неделю</code>",
   "admin_bulk_promo_invalid_format": "❌ Неверный формат. Используйте: количество|дни|описание",
   "admin_bulk_promo_created_success": "✅ Создано {count} промокодов на {days} дней!",
   "admin_bulk_promo_codes_file": "📄 Все созданные промокоды в файле ({count} шт.)",
-  
   "admin_promo_edit_step1_code": "✏️ <b>Редактирование промокода</b>\n\n<b>Шаг 1 из 4:</b> Код промокода\n\nТекущий код: <b>{current_code}</b>\n\nВведите новый код промокода (3-30 символов, только буквы и цифры) или отправьте текущий для сохранения:",
   "admin_promo_edit_step2_bonus_days": "✏️ <b>Редактирование промокода</b>\n\n<b>Шаг 2 из 4:</b> Бонусные дни\n\nКод: <b>{code}</b>\nТекущие дни: <b>{current_days}</b>\n\nВведите количество бонусных дней (1-365):",
   "admin_promo_edit_step3_max_activations": "✏️ <b>Редактирование промокода</b>\n\n<b>Шаг 3 из 4:</b> Максимальные активации\n\nКод: <b>{code}</b>\nДни: <b>{days}</b>\nТекущие активации: <b>{current_max}</b>\n\nВведите максимальное количество активаций (1-10000):",
@@ -372,11 +341,9 @@
   "admin_promo_edit_enter_validity_days": "⏰ Введите количество дней действия промокода (1-365):",
   "admin_promo_updated_success": "✅ Промокод обновлен!\n\n🎟 Код: <b>{code}</b>\n🎁 Бонусные дни: <b>{days}</b>\n🔢 Максимальные активации: <b>{max_act}</b>\n⏰ Действует до: <b>{validity}</b>",
   "admin_promo_update_failed": "❌ Ошибка обновления промокода",
-  
   "admin_logs_export_csv": "📄 Экспорт в CSV",
   "admin_logs_csv_export_started": "📄 Начинаю экспорт логов в CSV...",
   "admin_logs_csv_export_success": "✅ Логи экспортированы! Файл прикреплен выше.",
-  
   "admin_csv_header_log_id": "ID Лога",
   "admin_csv_header_timestamp": "Время",
   "admin_csv_header_user_id": "ID Пользователя",
@@ -387,32 +354,24 @@
   "admin_csv_header_is_admin_event": "Админ событие",
   "admin_csv_header_target_user_id": "ID Целевого юзера",
   "admin_csv_header_raw_update_preview": "Превью обновления",
-  
   "admin_banned_users_empty": "📋 Заблокированные пользователи\n\nСписок пуст",
   "admin_banned_users_list": "📋 Заблокированные пользователи ({count}):\n\n{users}",
-  
   "admin_panel_stats_header": "Статистика панели",
-  
   "admin_bulk_promo_step1_quantity": "📦 <b>Массовое создание промокодов</b>\n\n<b>Шаг 1 из 4:</b> Количество промокодов\n\nВведите количество промокодов для создания (1-1000):",
   "admin_bulk_promo_step2_bonus_days": "📦 <b>Массовое создание промокодов</b>\n\n<b>Шаг 2 из 4:</b> Бонусные дни\n\nКоличество: <b>{quantity}</b>\n\nВведите количество бонусных дней (1-365):",
   "admin_bulk_promo_step3_max_activations": "📦 <b>Массовое создание промокодов</b>\n\n<b>Шаг 3 из 4:</b> Максимальные активации\n\nКоличество: <b>{quantity}</b>\nБонусные дни: <b>{bonus_days}</b>\n\nВведите максимальное количество активаций для каждого промокода (1-10000):",
   "admin_bulk_promo_step4_validity": "📦 <b>Массовое создание промокодов</b>\n\n<b>Шаг 4 из 4:</b> Срок действия\n\nКоличество: <b>{quantity}</b>\nБонусные дни: <b>{bonus_days}</b>\nМакс. активации: <b>{max_activations}</b>\n\nВыберите срок действия промокодов:",
-  
   "admin_bulk_promo_invalid_quantity": "❌ Количество должно быть от 1 до 1000",
   "admin_bulk_promo_invalid_bonus_days": "❌ Бонусные дни должны быть от 1 до 365",
   "admin_bulk_promo_invalid_max_activations": "❌ Максимальные активации должны быть от 1 до 10000",
-  
   "admin_bulk_promo_unlimited_validity": "♾️ Неограниченно",
   "admin_bulk_promo_set_validity": "⏰ Установить срок",
   "admin_bulk_promo_enter_validity_days": "⏰ Введите количество дней действия промокодов (1-365):",
-  
   "admin_bulk_promo_creating": "⏳ Создаю {quantity} промокодов...",
-  
   "admin_promo_step1_code": "🎟 <b>Создание промокода</b>\n\n<b>Шаг 1 из 4:</b> Код промокода\n\nВведите код промокода (3-30 символов, только буквы и цифры):",
   "admin_promo_step2_bonus_days": "🎟 <b>Создание промокода</b>\n\n<b>Шаг 2 из 4:</b> Бонусные дни\n\nКод: <b>{code}</b>\n\nВведите количество бонусных дней (1-365):",
   "admin_promo_step3_max_activations": "🎟 <b>Создание промокода</b>\n\n<b>Шаг 3 из 4:</b> Максимальные активации\n\nКод: <b>{code}</b>\nБонусные дни: <b>{bonus_days}</b>\n\nВведите максимальное количество активаций (1-10000):",
   "admin_promo_step4_validity": "🎟 <b>Создание промокода</b>\n\n<b>Шаг 4 из 4:</b> Срок действия\n\nКод: <b>{code}</b>\nБонусные дни: <b>{bonus_days}</b>\nМакс. активации: <b>{max_activations}</b>\n\nВыберите срок действия промокода:",
-  
   "admin_promo_code_already_exists": "❌ Промокод с таким кодом уже существует",
   "admin_promo_processing_error": "❌ Ошибка обработки промокода",
   "admin_promo_unlimited_validity": "♾️ Неограниченно",
@@ -421,10 +380,8 @@
   "admin_promo_skip_description": "⏭️ Пропустить",
   "admin_promo_description_too_long": "❌ Описание не должно превышать 200 символов",
   "admin_promo_creating": "⏳ Создаю промокод...",
-  
   "admin_panel_back_button": "⬅️ Назад",
   "admin_bulk_promo_creation_failed": "❌ Ошибка создания промокодов: {error}",
-  
   "admin_user_id_label": "🆔 <b>ID:</b>",
   "admin_user_name_label": "👤 <b>Имя:</b>",
   "admin_user_username_label": "📱 <b>Username:</b>",
@@ -437,7 +394,6 @@
   "admin_user_traffic_label": "📊 <b>Трафик:</b>",
   "admin_user_subscription_label": "💼 <b>Подписка:</b>",
   "admin_user_trial_label": "🏡 <b>Триал:</b>",
-  
   "admin_user_status_banned": "🚫 Заблокирован",
   "admin_user_status_active": "✅ Активен",
   "admin_user_trial_used": "Использовал",
@@ -445,20 +401,15 @@
   "admin_user_ban_action_banned": "заблокирован",
   "admin_user_ban_action_unbanned": "разблокирован",
   "admin_user_na_value": "N/A",
-  
   "admin_user_subscription_active": "Активна до {end_date}",
   "admin_user_subscription_expired": "Истекла {end_date}",
   "admin_user_subscription_none": "Нет активной подписки",
-  
   "admin_user_logs_count": "Всего записей: {count}",
   "admin_user_logs_entry": "📅 {timestamp}\n📝 {event_type}: {content}",
-  
   "admin_user_actions_count_label": "📜 <b>Всего действий:</b>",
   "admin_user_subscription_active_until": "⏰ <b>Действует до:</b>",
   "admin_user_subscription_error": "Ошибка загрузки",
-  
   "admin_bulk_promo_unique_generation_failed": "Не удалось создать уникальный промокод",
-  
   "admin_promo_management_button": "🎟 Управление промокодами",
   "admin_promo_management_title": "🎟 <b>Управление промокодами</b>\n\nВыберите промокод для детального просмотра:",
   "admin_promo_management_empty": "📭 Промокоды отсутствуют",
@@ -484,11 +435,10 @@
   "admin_promo_activations_header": "📋 <b>Активации промокода: {code}</b>\n\n",
   "admin_promo_activation_item": "👤 User ID: <b>{user_id}</b>\n📅 Дата: <b>{date}</b>\n",
   "admin_promo_back_to_detail_button": "⬅️ К промокоду",
-  
   "admin_panel_online_label": "Онлайн",
   "admin_panel_active_label": "Активных",
   "admin_panel_disabled_label": "Отключенных",
-  "admin_panel_offline_label": "Офлайн", 
+  "admin_panel_offline_label": "Офлайн",
   "admin_panel_expired_label": "Истекшие",
   "admin_panel_limited_label": "Ограниченные",
   "admin_panel_total_users_label": "Всего пользователей",
@@ -503,9 +453,8 @@
   "admin_panel_nodes_stats_error": "Ошибка получения статистики нод",
   "admin_panel_stats_fetch_error": "Ошибка получения данных с панели",
   "admin_panel_stats_error_details": "Детали",
-  
-  "inline_referral_message": "🚀 Привет! Попробуй этот VPN - быстрый, надёжный и доступный!\n\n🎁 По моей ссылке тебе дадут бонусные дни к подписке!\n\n{referral_link}",
-  "inline_referral_title": "Реферальная ссылка",
+  "inline_referral_message": "🚀 Хочешь ускорить ютуб?\n🎁 Первые несколько дней бесплатно и бонус после оплаты:\n\n{referral_link}",
+  "inline_referral_title": "Поделись с друзьями",
   "inline_referral_description": "Поделиться реферальной ссылкой для получения бонусов",
   "inline_stats_title": "Статистика бота",
   "inline_stats_description": "Всего: {total}, Активных: {active}",
@@ -515,7 +464,6 @@
   "inline_system_description": "🟢 Онлайн: {online}, 📊 Активных: {active}",
   "inline_admin_help_title": "Помощь по командам",
   "inline_admin_help_description": "Доступны команды: реф, стат, финансы, система",
-  
   "admin_user_stats_total_label": "Всего",
   "admin_user_stats_paid_subs_label": "С платной подпиской",
   "admin_user_stats_trial_label": "На пробном периоде",
