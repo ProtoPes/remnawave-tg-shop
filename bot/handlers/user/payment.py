@@ -164,8 +164,10 @@ async def process_successful_payment(
         config_link = activation_details.get("subscription_url") or _(
             "config_link_not_available"
         )
-        if activation_details.get("tag") == "MIGRATED" and final_end_date_for_user:
+        if activation_details.get("ext_api_success") and final_end_date_for_user:
             final_end_date_for_user = final_end_date_for_user.strftime("%Y-%m-%d") + f"\nCинхронизирована с: {settings.EXTERNAL_URL}"
+        else:
+            final_end_date_for_user = final_end_date_for_user.strftime("%Y-%m-%d")
 
         if applied_referee_bonus_days_from_referral and final_end_date_for_user:
             inviter_name_display = _("friend_placeholder")

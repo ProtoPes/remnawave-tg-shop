@@ -117,8 +117,10 @@ class StarsService:
         config_link = activation_details.get("subscription_url") or _(
             "config_link_not_available"
         )
-        if activation_details.get("tag") == "MIGRATED" and final_end:
+        if activation_details.get("ext_api_success") and final_end:
             final_end = final_end.strftime("%Y-%m-%d") + f"\nCинхронизирована с: {self.settings.EXTERNAL_URL}"
+        else:
+            final_end = final_end.strftime("%Y-%m-%d")
 
         if applied_days:
             inviter_name_display = _("friend_placeholder")

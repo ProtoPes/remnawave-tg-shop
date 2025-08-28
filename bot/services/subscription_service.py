@@ -510,6 +510,7 @@ class SubscriptionService:
 
         # Send info about subscrtiption in old bot
         tag = updated_panel_user.get("tag")
+        ext_api_success = False
         try:
             if tag == "MIGRATED":
                 logging.info(f"Got migrated user: {user_id}, sending update request to external api")
@@ -518,14 +519,14 @@ class SubscriptionService:
                     "Accept": "application/json",
                     "Authorization": f"Bearer {self.settings.EXTERNAL_API_KEY}"
                 }
-                payload = {"user_id": user_id, "expire_at": final_end_date.isoformat()}
+                payload = {"user_id": user_id, "expire_at": final_end_date.isoformat(), "origin": self.settings.YOOKASSA_RETURN_URL}
                 async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(5)) as sess:
                     async with sess.post(self.settings.EXTERNAL_API_URL, json=payload, headers=headers) as response:
                         if response.status == 200:
+                            ext_api_success = True
                             logging.info(f"User {user_id} updated succesfully in external api")
                         else:
                             logging.warning(f"Status {response.status} received from external api")
-            pass
         except Exception as ex:
             logging.warning(f"Cannot post activation to external api: {ex}")
 
@@ -540,7 +541,7 @@ class SubscriptionService:
             "panel_short_uuid": final_panel_short_uuid,
             "subscription_url": final_subscription_url,
             "applied_promo_bonus_days": applied_promo_bonus_days,
-            "tag": tag,
+            "ext_api_success": ext_api_success,
         }
 
     async def extend_active_subscription_days(
