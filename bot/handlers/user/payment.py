@@ -164,6 +164,10 @@ async def process_successful_payment(
         config_link = activation_details.get("subscription_url") or _(
             "config_link_not_available"
         )
+        if activation_details.get("ext_api_success") and final_end_date_for_user:
+            final_end_date_for_user = final_end_date_for_user.strftime("%Y-%m-%d") + f"\nCинхронизирована с: {settings.EXTERNAL_URL}"
+        else:
+            final_end_date_for_user = final_end_date_for_user.strftime("%Y-%m-%d")
 
         if applied_referee_bonus_days_from_referral and final_end_date_for_user:
             inviter_name_display = _("friend_placeholder")
@@ -179,7 +183,7 @@ async def process_successful_payment(
                 months=subscription_months,
                 base_end_date=base_subscription_end_date.strftime("%Y-%m-%d"),
                 bonus_days=applied_referee_bonus_days_from_referral,
-                final_end_date=final_end_date_for_user.strftime("%Y-%m-%d"),
+                final_end_date=final_end_date_for_user,
                 inviter_name=inviter_name_display,
                 config_link=config_link,
             )
@@ -188,14 +192,14 @@ async def process_successful_payment(
                 "payment_successful_with_promo_full",
                 months=subscription_months,
                 bonus_days=applied_promo_bonus_days,
-                end_date=final_end_date_for_user.strftime("%Y-%m-%d"),
+                end_date=final_end_date_for_user,
                 config_link=config_link,
             )
         elif final_end_date_for_user:
             details_message = _(
                 "payment_successful_full",
                 months=subscription_months,
-                end_date=final_end_date_for_user.strftime("%Y-%m-%d"),
+                end_date=final_end_date_for_user,
                 config_link=config_link,
             )
         else:
@@ -206,6 +210,7 @@ async def process_successful_payment(
 
         details_markup = get_main_menu_inline_keyboard(user_lang, i18n, settings)
         try:
+
             await bot.send_message(
                 user_id,
                 details_message,

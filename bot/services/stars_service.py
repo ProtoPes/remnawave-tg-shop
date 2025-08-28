@@ -117,6 +117,10 @@ class StarsService:
         config_link = activation_details.get("subscription_url") or _(
             "config_link_not_available"
         )
+        if activation_details.get("ext_api_success") and final_end:
+            final_end = final_end.strftime("%Y-%m-%d") + f"\nCинхронизирована с: {self.settings.EXTERNAL_URL}"
+        else:
+            final_end = final_end.strftime("%Y-%m-%d")
 
         if applied_days:
             inviter_name_display = _("friend_placeholder")
@@ -132,7 +136,7 @@ class StarsService:
                 months=months,
                 base_end_date=activation_details["end_date"].strftime('%Y-%m-%d'),
                 bonus_days=applied_days,
-                final_end_date=final_end.strftime('%Y-%m-%d'),
+                final_end_date=final_end,
                 inviter_name=inviter_name_display,
                 config_link=config_link,
             )
@@ -140,7 +144,7 @@ class StarsService:
             success_msg = _(
                 "payment_successful_full",
                 months=months,
-                end_date=final_end.strftime('%Y-%m-%d'),
+                end_date=final_end,
                 config_link=config_link,
             )
         markup = get_connect_and_main_keyboard(

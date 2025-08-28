@@ -111,6 +111,7 @@ class Settings(BaseSettings):
     # For integrations with migrated service
     EXTERNAL_API_URL: str
     EXTERNAL_API_KEY: str
+    EXTERNAL_URL: str
 
     TRIAL_ENABLED: bool = Field(default=True)
     TRIAL_DURATION_DAYS: int = Field(default=3)

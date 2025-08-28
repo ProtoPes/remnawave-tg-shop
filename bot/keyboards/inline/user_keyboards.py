@@ -158,6 +158,10 @@ def get_payment_method_keyboard(
 ) -> InlineKeyboardMarkup:
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
+    if settings.YOOKASSA_ENABLED:
+        builder.button(
+            text=_("pay_with_yookassa_button"), callback_data=f"pay_yk:{months}:{price}"
+        )
     if settings.STARS_ENABLED and stars_price is not None:
         builder.button(
             text=_("pay_with_stars_button"),
@@ -165,10 +169,6 @@ def get_payment_method_keyboard(
         )
     if settings.TRIBUTE_ENABLED and tribute_url:
         builder.button(text=_("pay_with_tribute_button"), url=tribute_url)
-    if settings.YOOKASSA_ENABLED:
-        builder.button(
-            text=_("pay_with_yookassa_button"), callback_data=f"pay_yk:{months}:{price}"
-        )
     if settings.CRYPTOPAY_ENABLED:
         builder.button(
             text=_("pay_with_cryptopay_button"),

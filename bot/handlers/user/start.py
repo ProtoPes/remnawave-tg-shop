@@ -84,11 +84,14 @@ async def send_main_menu(
         end_date = active.get("end_date")
         days_left = (end_date.date() - datetime.now().date()).days if end_date else 0
         config_link = active.get("config_link") or _("config_link_not_available")
+        status=active.get("status_from_panel", _("status_active")).capitalize()
+        if active.get("tag") == "MIGRATED":
+            status += f"\nCинхронизирована с: {settings.EXTERNAL_URL}"
         text = _(
             "my_subscription_details",
             end_date=end_date.strftime("%Y-%m-%d") if end_date else "N/A",
             days_left=max(0, days_left),
-            status=active.get("status_from_panel", _("status_active")).capitalize(),
+            status=status,
             config_link=config_link,
         )
 
