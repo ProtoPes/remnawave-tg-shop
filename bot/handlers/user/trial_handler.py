@@ -13,6 +13,7 @@ from bot.keyboards.inline.user_keyboards import (
     get_main_menu_inline_keyboard,
 )
 from bot.middlewares.i18n import JsonI18n
+from db.dal.utils_dal import get_channel_invite_link
 from .start import send_main_menu
 
 router = Router(name="user_trial_router")
@@ -92,6 +93,7 @@ async def request_trial_confirmation_handler(
                 if isinstance(end_date_obj, datetime)
                 else "N/A"
             ),
+            channel_invite_link=await get_channel_invite_link(session),
             config_link=config_link_for_trial,
             traffic_gb=traffic_display,
         )
@@ -212,6 +214,7 @@ async def confirm_activate_trial_handler(
                 else "N/A"
             ),
             config_link=config_link_for_trial,
+            channel_invite_link=await get_channel_invite_link(session),
             traffic_gb=traffic_display,
         )
     else:

@@ -14,6 +14,7 @@ from sqlalchemy.orm import sessionmaker
 
 from config.settings import Settings
 
+from db.dal.utils_dal import get_channel_invite_link, update_channel_invite_link
 from db.database_setup import init_db_connection
 
 from bot.middlewares.i18n import I18nMiddleware, get_i18n_instance, JsonI18n
@@ -178,6 +179,20 @@ async def on_startup_configured(dispatcher: Dispatcher):
 
     except Exception as e:
         logging.error(f"STARTUP: Failed to run automatic sync: {e}", exc_info=True)
+
+    # Configure channel invite link
+    try:
+        logging.info("STARTUP: Checking channel invite link")
+
+        async with async_session_factory() as session:
+            channel_invite_link = await get_channel_invite_link(session)
+            if not channel_invite_link:
+                logging.info("STARTUP: Channel invite link is not set, creating new")
+                channel_invite_link = await bot.create_chat_invite_link(settings.CHANNEL_ID, creates_join_request=True)
+                await update_channel_invite_link(session, channel_invite_link.invite_link)
+        logging.info(f"STARTUP: Invite link is {channel_invite_link}")
+    except Exception as e:
+        logging.error(f"STARTUP: Failed to check invite link: {e}", exc_info=True)
 
     logging.info("STARTUP: Bot on_startup_configured completed.")
 
