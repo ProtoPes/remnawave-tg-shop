@@ -92,6 +92,7 @@ async def request_trial_confirmation_handler(
                 if isinstance(end_date_obj, datetime)
                 else "N/A"
             ),
+            channel_invite_link=settings.CHANNEL_INVITE_LINK,
             config_link=config_link_for_trial,
             traffic_gb=traffic_display,
         )
@@ -212,6 +213,7 @@ async def confirm_activate_trial_handler(
                 else "N/A"
             ),
             config_link=config_link_for_trial,
+            channel_invite_link=settings.CHANNEL_INVITE_LINK,
             traffic_gb=traffic_display,
         )
     else:

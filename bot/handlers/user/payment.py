@@ -185,6 +185,7 @@ async def process_successful_payment(
                 bonus_days=applied_referee_bonus_days_from_referral,
                 final_end_date=final_end_date_for_user,
                 inviter_name=inviter_name_display,
+                channel_invite_link=settings.CHANNEL_INVITE_LINK,
                 config_link=config_link,
             )
         elif applied_promo_bonus_days > 0 and final_end_date_for_user:
@@ -193,6 +194,7 @@ async def process_successful_payment(
                 months=subscription_months,
                 bonus_days=applied_promo_bonus_days,
                 end_date=final_end_date_for_user,
+                channel_invite_link=settings.CHANNEL_INVITE_LINK,
                 config_link=config_link,
             )
         elif final_end_date_for_user:
@@ -200,6 +202,7 @@ async def process_successful_payment(
                 "payment_successful_full",
                 months=subscription_months,
                 end_date=final_end_date_for_user,
+                channel_invite_link=settings.CHANNEL_INVITE_LINK,
                 config_link=config_link,
             )
         else:

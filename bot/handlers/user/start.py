@@ -92,6 +92,7 @@ async def send_main_menu(
             end_date=end_date.strftime("%Y-%m-%d") if end_date else "N/A",
             days_left=max(0, days_left),
             status=status,
+            channel_invite_link=settings.CHANNEL_INVITE_LINK,
             config_link=config_link,
         )
 
