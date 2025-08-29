@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     DEFAULT_LANGUAGE: str = Field(default="ru")
     DEFAULT_CURRENCY_SYMBOL: str = Field(default="RUB")
 
-    CHANNEL_INVITE_LINK: str
+    CHANNEL_ID: int
     SUPPORT_LINK: Optional[str] = Field(default=None)
     SERVER_STATUS_URL: Optional[str] = Field(default=None)
     TERMS_OF_SERVICE_URL: Optional[str] = Field(default=None)

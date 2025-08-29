@@ -1,3 +1,4 @@
+from aiogram.types import chat_invite_link
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, DateTime, Float, ForeignKey, UniqueConstraint, Text, BigInteger
 from sqlalchemy.orm import relationship, DeclarativeBase
 from sqlalchemy.ext.asyncio import AsyncAttrs
@@ -195,3 +196,19 @@ class PanelSyncStatus(Base):
     subscriptions_synced = Column(Integer, default=0)
 
     __table_args__ = (UniqueConstraint('id'), )
+
+
+class Utils(Base):
+    __tablename__ = "utility_data"
+
+    _id = Column("id", Integer, primary_key=True, default=1, autoincrement=False)
+    _channel_invite_link = Column("channel_invite_link", String, nullable=True)
+
+    def __init__(self, id, ch_inv_link):
+        self._id = id
+        self._channel_invite_link = ch_inv_link
+
+    def set_channel_invite_link(self, ch_inv_link: str):
+        self._channel_invite_link = ch_inv_link
+    def get_channel_invite_link(self) -> str:
+        return str(self._channel_invite_link)

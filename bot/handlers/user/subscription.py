@@ -3,6 +3,7 @@ from aiogram import Router, F, types, Bot
 from aiogram.filters import Command
 from aiogram.types import (
     ChatIdUnion,
+    ChatJoinRequest,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     LabeledPrice,
@@ -12,7 +13,7 @@ from datetime import datetime, timezone
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from config.settings import Settings
-from db.dal import payment_dal
+from db.dal import payment_dal, subscription_dal, utils_dal
 from bot.keyboards.inline.user_keyboards import (
     get_connect_and_main_keyboard,
     get_subscription_options_keyboard,
@@ -444,6 +445,7 @@ async def my_subscription_command_handler(
         "my_subscription_details",
         end_date=end_date.strftime("%Y-%m-%d") if end_date else "N/A",
         days_left=max(0, days_left),
+        channel_invite_link=await utils_dal.get_channel_invite_link(session),
         status=active.get("status_from_panel", get_text("status_active")).capitalize(),
     )
     markup = get_connect_and_main_keyboard(current_lang, i18n, settings, config_link)
@@ -517,3 +519,22 @@ async def connect_command_handler(
     await my_subscription_command_handler(
         message, i18n_data, settings, panel_service, subscription_service, session, bot
     )
+
+@router.chat_join_request()
+async def join_chat_handler(req: ChatJoinRequest, session: AsyncSession):
+    logging.debug(f"New chat join request {req}")
+    active_sub = await subscription_dal.get_active_subscription_by_user_id(session, req.from_user.id)
+    chat_invite_link = await utils_dal.get_channel_invite_link(session)
+    try:
+        if active_sub and req.invite_link and chat_invite_link and chat_invite_link == req.invite_link.invite_link:
+            logging.debug(f"Approving join request for user {req.user_chat_id}")
+            res = await req.approve()
+        else:
+            logging.debug(f"Declining join request for user {req.user_chat_id}")
+            res = await req.decline()
+    except Exception as e:
+        logging.error(f"Error handling chat join request: {e}")
+        res = None
+    if res:
+        logging.debug("Chat join request was handled propery")
+

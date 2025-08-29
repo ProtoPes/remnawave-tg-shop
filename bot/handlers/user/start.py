@@ -19,6 +19,7 @@ from bot.services.referral_service import ReferralService
 from bot.services.promo_code_service import PromoCodeService
 from config.settings import Settings
 from bot.middlewares.i18n import JsonI18n
+from db.dal.utils_dal import get_channel_invite_link
 
 router = Router(name="user_start_router")
 
@@ -92,7 +93,7 @@ async def send_main_menu(
             end_date=end_date.strftime("%Y-%m-%d") if end_date else "N/A",
             days_left=max(0, days_left),
             status=status,
-            channel_invite_link=settings.CHANNEL_INVITE_LINK,
+            channel_invite_link=await get_channel_invite_link(session),
             config_link=config_link,
         )
 
