@@ -1,4 +1,5 @@
 import logging
+from uuid import uuid4
 import aiohttp
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime, timedelta, timezone
@@ -82,7 +83,8 @@ class SubscriptionService:
             return None, None, None, False
 
         current_local_panel_uuid = db_user.panel_user_uuid
-        panel_username_on_panel_standard = f"tg_{user_id}"
+        # Username better to be random
+        panel_username_on_panel_standard = uuid4().hex[:14]
 
         panel_user_obj_from_api = None
         panel_user_created_or_linked_now = False
