@@ -17,7 +17,7 @@ from bot.middlewares.profile_sync import ProfileSyncMiddleware
 
 def build_dispatcher(settings: Settings, async_session_factory: sessionmaker) -> tuple[Dispatcher, Bot, Dict]:
     storage = MemoryStorage()
-    default_props = DefaultBotProperties(parse_mode=ParseMode.HTML)
+    default_props = DefaultBotProperties(parse_mode=ParseMode.HTML, protect_content=True)
     bot = Bot(token=settings.BOT_TOKEN, default=default_props)
 
     dp = Dispatcher(storage=storage, settings=settings, bot_instance=bot)
