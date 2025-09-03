@@ -445,7 +445,6 @@ async def my_subscription_command_handler(
         "my_subscription_details",
         end_date=end_date.strftime("%Y-%m-%d") if end_date else "N/A",
         days_left=max(0, days_left),
-        channel_invite_link=await utils_dal.get_channel_invite_link(session),
         status=active.get("status_from_panel", get_text("status_active")).capitalize(),
     )
     markup = get_connect_and_main_keyboard(current_lang, i18n, settings, config_link)

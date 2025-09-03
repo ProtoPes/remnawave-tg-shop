@@ -180,7 +180,7 @@ async def on_startup_configured(dispatcher: Dispatcher):
     except Exception as e:
         logging.error(f"STARTUP: Failed to run automatic sync: {e}", exc_info=True)
 
-    # Configure channel invite link
+    # Configure channel invite link and short description
     try:
         logging.info("STARTUP: Checking channel invite link")
 
@@ -190,6 +190,33 @@ async def on_startup_configured(dispatcher: Dispatcher):
                 logging.info("STARTUP: Channel invite link is not set, creating new")
                 channel_invite_link = await bot.create_chat_invite_link(settings.CHANNEL_ID, creates_join_request=True)
                 await update_channel_invite_link(session, channel_invite_link.invite_link)
+            cur_short_desc = await bot.get_my_short_description("ru")
+            db_short_desc = i18n_instance.gettext(
+                "ru",
+                "bot_short_desc",
+                channel_invite_link=channel_invite_link
+            )
+            logging.debug(f"Current short desc: {cur_short_desc.short_description}")
+            if cur_short_desc.short_description != db_short_desc:
+                logging.info("Short desc do not match, updating...")
+                if await bot.set_my_short_description(db_short_desc, "ru") and await bot.set_my_short_description(db_short_desc):
+                    logging.info("Success")
+                else:
+                    logging.error("Failed to set short description")
+            db_long_desc = i18n_instance.gettext(
+                "ru",
+                "bot_long_desc",
+                channel_invite_link=channel_invite_link
+            )
+            cur_long_desc = await bot.get_my_description("ru")
+            logging.debug(f"Current long desc: {cur_long_desc.description}")
+            if cur_long_desc.description != db_long_desc:
+                logging.info("Long desc do not match, updating...")
+                if await bot.set_my_description(db_long_desc, "ru") and await bot.set_my_description(db_long_desc):
+                    logging.info("Success")
+                else:
+                    logging.error("Failed to set long description")
+
         logging.info(f"STARTUP: Invite link is {channel_invite_link}")
     except Exception as e:
         logging.error(f"STARTUP: Failed to check invite link: {e}", exc_info=True)
