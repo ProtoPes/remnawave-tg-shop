@@ -47,7 +47,7 @@
 1. **Клонируйте репозиторий:**
 
     ```bash
-    git clone https://github.com/machka-pasla/remnawave-tg-shop
+    git clone https://github.com/protopes/remnawave-tg-shop
     cd remnawave-tg-shop
     ```
 
@@ -128,9 +128,6 @@
     </details>
 
 3. **Запустите контейнеры:**
-
-> [!WARNING]
-> Замените <CHANGE_ME> в файле `nginx/nginx.conf` на свой домен
 
     ```bash
     docker compose up -d
