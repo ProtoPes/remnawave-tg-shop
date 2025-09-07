@@ -95,7 +95,7 @@ async def request_trial_confirmation_handler(
             config_link=config_link_for_trial,
             traffic_gb=traffic_display,
         )
-        
+
         # Send notification to admin about new trial
         notification_service = NotificationService(callback.bot, settings, i18n)
         await notification_service.notify_trial_activation(user_id, end_date_obj)
@@ -221,7 +221,7 @@ async def confirm_activate_trial_handler(
             else "trial_activation_failed"
         )
         final_message_text_in_chat = _(message_key_from_service)
-        await callback.answer(final_message_text_in_chat, show_alert=True)
+        await callback.answer(final_message_text_in_chat)
         if (
             settings.TRIAL_ENABLED
             and not await subscription_service.has_had_any_subscription(

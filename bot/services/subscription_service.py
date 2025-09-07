@@ -512,25 +512,11 @@ class SubscriptionService:
 
         # Send info about subscrtiption in old bot
         tag = updated_panel_user.get("tag")
-        ext_api_success = False
-        try:
-            if tag == "MIGRATED":
-                logging.info(f"Got migrated user: {user_id}, sending update request to external api")
-                headers = {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": f"Bearer {self.settings.EXTERNAL_API_KEY}"
-                }
-                payload = {"user_id": user_id, "expire_at": final_end_date.isoformat(), "origin": self.settings.YOOKASSA_RETURN_URL}
-                async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(5)) as sess:
-                    async with sess.post(self.settings.EXTERNAL_API_URL, json=payload, headers=headers) as response:
-                        if response.status == 200:
-                            ext_api_success = True
-                            logging.info(f"User {user_id} updated succesfully in external api")
-                        else:
-                            logging.warning(f"Status {response.status} received from external api")
-        except Exception as ex:
-            logging.warning(f"Cannot post activation to external api: {ex}")
+        if tag == "MIGRATED":
+            ext_api_success = self.notify_external_api(user_id, final_end_date)
+        else:
+            ext_api_success = False
+
 
         final_subscription_url = updated_panel_user.get("subscriptionUrl")
         final_panel_short_uuid = updated_panel_user.get("shortUuid", panel_short_uuid)
@@ -627,6 +613,8 @@ class SubscriptionService:
                     panel_update_payload,
                 )
             )
+            # Notify exteranl API about changes
+            await self.notify_external_api(user_id, new_end_date_obj)
             if not panel_update_success:
                 logging.warning(
                     f"Panel expiry update failed for {panel_uuid} after {reason} bonus. Local DB was updated to {new_end_date_obj}."
@@ -811,3 +799,23 @@ class SubscriptionService:
         if self.settings.parsed_user_squad_uuids:
             payload["activeInternalSquads"] = self.settings.parsed_user_squad_uuids
         return payload
+
+    async def notify_external_api(self, user_id: int, final_end_date: datetime) -> bool:
+        """Send post request to an external api with user updates"""
+        try:
+                logging.info(f"Got migrated user: {user_id}, sending update request to external api")
+                headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": f"Bearer {self.settings.EXTERNAL_API_KEY}"
+                }
+                payload = {"user_id": user_id, "expire_at": final_end_date.isoformat(), "origin": self.settings.YOOKASSA_RETURN_URL}
+                async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(5)) as sess:
+                    async with sess.post(self.settings.EXTERNAL_API_URL, json=payload, headers=headers) as response:
+                        if response.status == 200:
+                            logging.info(f"User {user_id} updated succesfully in external api")
+                            return True
+                        logging.warning(f"Status {response.status} received from external api")
+        except Exception as ex:
+            logging.warning(f"Cannot post activation to external api: {ex}")
+        return False
