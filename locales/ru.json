@@ -80,7 +80,7 @@
   "referral_no_bonuses_configured": "\nРеферальные бонусы не настроены.",
   "referral_link_for_copying_reminder": "Ссылка выше. Нажмите и удерживайте для копирования.",
   "referral_share_message_button": "📩 Сообщение для друга",
-  "referral_friend_message": "🚀 Хочешь ускорить ютуб?\n🎁 Первые несколько дней бесплатно и бонус после оплаты:\n\n{referral_link}",
+  "referral_friend_message": "\n🚀 Хочешь ускорить ютуб?\n🎁 Первые несколько дней бесплатно и бонус после оплаты",
   "friend_placeholder": "друг",
   "referral_bonus_inviter_notification_extended": "🎉 Поздравляем! Твой друг {referee_name} оплатил подписку. Тебе начислено {days} бонусных дн.! Твоя подписка теперь активна до {new_end_date}.",
   "referral_bonus_inviter_notification_new_sub": "🎉 Поздравляем! Твой друг {referee_name} оплатил подписку. Тебе начислена бонусная подписка на {days} дн.! Она активна до {new_end_date}.",

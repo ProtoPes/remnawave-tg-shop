@@ -1,4 +1,5 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardButton
+from aiogram.utils import link
 from aiogram.types import InlineKeyboardMarkup, WebAppInfo
 from typing import Dict, Optional, List
 
@@ -202,13 +203,12 @@ def get_referral_link_keyboard(
             key="referral_friend_message",
             i18n_instance=i18n_instance,
             lang=lang,
-            referral_link=ref_url,
         )
     )
     builder = InlineKeyboardBuilder()
     builder.button(
         text=get_text("inline_referral_title", i18n_instance, lang),
-        url=f"tg://msg?text={ref_text}",
+        url=f"tg://msg_url?url={urllib.parse.quote(ref_url)}&text={ref_text}",
     )
     builder.button(
         text=get_text("back_to_main_menu_button", i18n_instance, lang),

@@ -78,7 +78,7 @@
   "referral_no_bonuses_configured": "\nNo referral bonuses configured.",
   "referral_link_for_copying_reminder": "The link is above. Press and hold to copy.",
   "referral_share_message_button": "📩 Message for friend",
-  "referral_friend_message": "🚀 Hey! Try this if you want to use internet privately!\n🎁 There is a little bonus after first payment:\n{referral_link}",
+  "referral_friend_message": "\n🚀 Hey! Try this if you want to use internet privately!\n🎁 There is a little bonus after first payment",
   "friend_placeholder": "friend",
   "referral_bonus_inviter_notification_extended": "🎉 Congrats! Your friend {referee_name} paid for a subscription. You received {days} bonus days! Your subscription is now active until {new_end_date}.",
   "referral_bonus_inviter_notification_new_sub": "🎉 Congrats! Your friend {referee_name} paid for a subscription. You received a {days}-day bonus subscription! It is active until {new_end_date}.",
@@ -466,7 +466,6 @@
   "admin_financial_month_label": "This month",
   "admin_financial_all_time_label": "All time",
   "admin_financial_payments_label": "payments",
-
   "admin_sync_details": "📊 Synchronization Statistics:\n🔍 Panel records checked: {panel_records_checked}\n👥 Users found in DB: {users_found_in_db}\n✨ New users created: {users_created}\n🔄 Users updated: {users_updated}\n📋 Subscriptions synced: {subscriptions_synced_count}\n   ├── Created new: {subscriptions_created}\n   └── Updated existing: {subscriptions_updated}{additional_stats}",
   "admin_sync_no_telegram_id": "\n⚠️ Records without telegramId: {count}",
   "admin_sync_not_found_in_db": "\n❌ Not found in DB: {count}",
