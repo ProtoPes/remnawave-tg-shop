@@ -513,7 +513,7 @@ class SubscriptionService:
         # Send info about subscrtiption in old bot
         tag = updated_panel_user.get("tag")
         if tag == "MIGRATED":
-            ext_api_success = self.notify_external_api(user_id, final_end_date)
+            ext_api_success = await self.notify_external_api(user_id, final_end_date)
         else:
             ext_api_success = False
 
